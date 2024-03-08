@@ -1,49 +1,26 @@
-let produtos = [
-  {
-      id: '001',
-      nome: "Senhor dos Anéis",
-      descricao: 'história',
-      preco: 12.99,
-      dataCadastro: '08/06/2024',
-      dataAtualizada: '08/06/2024'
-  },
-]
-
-function listarProdutos() {
-  return produtos
+const sequence = { // contante que vai adicionar a sequencia do Id
+  _id: 1,
+  get id () {return this._id++ }
 }
 
-function buscarProduto(id) {
-  return produtos.find(produto => produto.id === id)
-}
+const produtos = {} 
 
-function adicionarProduto(produto) {
-  produtos.push(produto)
+
+function salvarProduto(produto) { // faz a soma do id e acrescenta parametros adcionado ao objeto
+  if (!produto.id) produto.id = sequence.id
+  produtos[produto.id] = produto
   return produto
 }
 
-function atualizarProduto(id, novosDados) {
-  const index = produtos.findIndex(produto => produto.id === id)
-  if (index !== -1) {
-      produtos[index] = { ...produtos[index], ...novosDados }
-      return produtos[index]
-  }
-  return null
+function getProduto(id) {// chama o produto especifico, se não tiver ele retorna um array vazio.
+  return produtos[id] || {}
 }
 
-function removerProduto(id) {
-  const index = produtos.findIndex(produto => produto.id === id)
-  if (index !== -1) {
-      const produtoRemovido = produtos.splice(index, 1)[0]
-      return produtoRemovido
-  }
-  return null
+
+function getProdutos() {//chama todos os objetos 
+  return Object.values(produtos)
 }
 
-module.exports = {
-  listarProdutos,
-  buscarProduto,
-  adicionarProduto,
-  atualizarProduto,
-  removerProduto
-}
+
+
+module.exports = {salvarProduto, getProduto, getProdutos}// extorta as funções para fora do arquivo
