@@ -16,7 +16,7 @@ app.get('/produtos/:id', (req, res) => { //essa rota me tras um unico id de prod
     res.send(bancoDeDados.getProduto(req.params.id))
 })
 
-app.post('/produtos', (req, res) => {//cria e salva o produto 
+app.post('/produtos', (req, res) => {//essa rota cria e salva o produto 
     const produto = bancoDeDados.salvarProduto({
         nome: req.body.nome,
         descricao: req.body.descricao,
@@ -27,7 +27,7 @@ app.post('/produtos', (req, res) => {//cria e salva o produto
     res.send(produto)
 })
 
-app.put('/produtos/:id', (req, res) => {//atualiza e salva o produto 
+app.put('/produtos/:id', (req, res) => {//essa rota edita o produto 
     const produto = bancoDeDados.salvarProduto({
         id: req.params.id,
         nome: req.body.nome,
@@ -39,7 +39,7 @@ app.put('/produtos/:id', (req, res) => {//atualiza e salva o produto
     res.send(produto)
 })
 
-app.delete('/produtos/:id', (req, res) => {//atualiza e salva o produto 
+app.delete('/produtos/:id', (req, res) => {//essa rota exclui o produto
     const produto = bancoDeDados.excluirProduto(req.params.id)     
     res.send(produto)
 })
