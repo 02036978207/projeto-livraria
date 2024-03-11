@@ -21,6 +21,12 @@ function getProdutos() {//chama todos os objetos
   return Object.values(produtos)
 }
 
+function excluirProduto(id) {//chama todos os objetos 
+  const produto = produtos[id]
+  delete produtos[id]
+  return produto
+}
 
 
-module.exports = {salvarProduto, getProduto, getProdutos}// extorta as funções para fora do arquivo
+
+module.exports = {salvarProduto, getProduto, getProdutos, excluirProduto}// extorta as funções para fora do arquivo
