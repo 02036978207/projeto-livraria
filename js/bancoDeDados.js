@@ -1,3 +1,5 @@
+const joi = require('joi')
+
 const sequence = { // contandor que vai adicionar a sequencia do Id
   _id: 1,
   get id () {return this._id++ }
@@ -5,6 +7,23 @@ const sequence = { // contandor que vai adicionar a sequencia do Id
 
 const produtos = {} 
 
+
+function validarObjeto (req, res, next) {
+  const schema = joi.object({
+        nome: joi.string().required(),
+        descricao: joi.string().required(),
+        preco: joi.number().required(),
+        dataCadastro: joi.date().required(),
+        dataAtualizada: joi.date().required()
+  })
+
+  const { error } = schema.validate(req.body)
+
+  if (error) {
+      return res.status(400).json({ error: error.details[0].message })
+  }
+  next()
+}
 
 function salvarProduto(produto) { // faz a soma do id e acrescenta parametros adcionado ao objeto(cria e edita)
   if (!produto.id) produto.id = sequence.id
@@ -29,4 +48,4 @@ function excluirProduto(id) {//exclui o objetos pelo id
 
 
 
-module.exports = {salvarProduto, getProduto, getProdutos, excluirProduto}// extorta as funções para fora do arquivo
+module.exports = { validarObjeto, salvarProduto, getProduto, getProdutos, excluirProduto }// extorta as funções para fora do arquivo
